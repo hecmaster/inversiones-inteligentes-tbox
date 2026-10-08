@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 2: Estilos, Imágenes y Formato de Documentos - Word 365 | TBox</title>
+    
+    <!-- JSZip para inspección de estructura XML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Estilos compartidos de la academia -->
+    <link rel="stylesheet" href="css/reto-formato.css">
+</head>
+<body>
+
+<div class="container-reto">
+    
+    <div class="header-reto">
+        <div class="header-title-box">
+            <span class="badge-modulo">Evaluación Práctica 2/3</span>
+            <h1>🎯 Reto 2: Estilos, Edición de Imágenes y Elementos Especiales</h1>
+        </div>
+        <div class="tbox-logo-container">
+            <div class="tbox-logo-text">TBox<span class="tbox-logo-dot">•</span></div>
+            <div class="tbox-subtext">Academy</div>
+        </div>
+    </div>
+
+    <!-- Módulo de Temporizador en Vivo -->
+    <div class="timer-card" style="background: #f0f4f8; border-radius: 8px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; border-left: 4px solid var(--tbox-blue, #0056b3);">
+        <div>
+            <strong>⏱️ Tiempo de Ejecución:</strong>
+            <span id="cronometroDisplay" style="font-family: monospace; font-size: 1.2rem; font-weight: bold; margin-left: 8px;">00:00</span>
+        </div>
+        <small style="color: #666;">El tiempo final se registrará al calificar el documento.</small>
+    </div>
+
+    <div class="section-box">
+        <h3>📌 Indicaciones Generales de la Evaluación</h3>
+        <p style="margin: 0;">
+            A continuación, se presenta una serie de requerimientos técnicos para aplicar formato avanzado en Microsoft Word 365. 
+            Descarga los materiales de trabajo, aplica las configuraciones solicitadas en tu documento base asegurándote de incluir tus datos de identificación mediante los elementos de revisión requeridos, y sube el archivo <strong>.docx</strong> final para obtener la calificación e informe de auditoría.
+        </p>
+    </div>
+
+    <h3>📥 1. Materiales de Trabajo</h3>
+    <div class="grid-recursos">
+        <a href="assets/docs/reto2/Reto2-base.docx" class="card-descarga" download>
+            <span>📄 Documento Base (.docx)</span>
+            <span class="btn-icon">Descargar</span>
+        </a>
+        <a href="assets/images/bono.jpg" class="card-descarga" download>
+            <span>🖼️ Imagen bono.jpg</span>
+            <span class="btn-icon" style="background-color: var(--tbox-blue, #0056b3);">Descargar</span>
+        </a>
+        <a href="assets/images/dinero.png" class="card-descarga" download>
+            <span>🖼️ Imagen dinero.png (Viñeta)</span>
+            <span class="btn-icon" style="background-color: var(--tbox-blue, #0056b3);">Descargar</span>
+        </a>
+        <a href="assets/docs/reto2/Reto2-solución.pdf" class="card-descarga" target="_blank" rel="noopener noreferrer">
+            <span>📕 Documento Solución</span>
+            <span class="btn-icon" style="background-color: #6c757d;">Ver Guía</span>
+        </a>
+    </div>
+
+    <h3>📝 2. Tareas a Realizar</h3>
+    
+    <ul class="items-lista">
+        <!-- TAREA 1 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">1</div>
+                <div class="item-content">
+                    <span class="item-title">Estilo Título 2</span>
+                    A los cuatro subtítulos del documento aplicar el estilo Título 2.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-1')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-1" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Selecciona el texto del primer subtítulo del documento.</li>
+                    <li>Ve a la pestaña <strong>Inicio</strong> en la cinta de opciones.</li>
+                    <li>En el grupo <strong>Estilos</strong>, haz clic en la opción <strong>Título 2</strong>.</li>
+                    <li>Repite el procedimiento con los otros tres subtítulos.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 2 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">2</div>
+                <div class="item-content">
+                    <span class="item-title">Inserción de Imagen</span>
+                    Insertar la imagen llamada <code>bono.jpg</code> después del primer párrafo y alinearla al centro.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-2')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-2" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Ubica el cursor al final del primer párrafo del documento y presiona Enter.</li>
+                    <li>Ve a la pestaña <strong>Insertar</strong> &gt; <strong>Imágenes</strong> &gt; <strong>Este dispositivo...</strong></li>
+                    <li>Selecciona e inserta la imagen <code>bono.jpg</code> descargada.</li>
+                    <li>Con la imagen seleccionada, ve a la pestaña <strong>Inicio</strong> y en el grupo <em>Párrafo</em> haz clic en <strong>Centrar</strong>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 3 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">3</div>
+                <div class="item-content">
+                    <span class="item-title">Saturación de Imagen</span>
+                    Aplicar una Saturación: 66% a la imagen.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-3')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-3" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Haz clic sobre la imagen para seleccionarla.</li>
+                    <li>Ve a la pestaña emergente <strong>Formato de la imagen</strong>.</li>
+                    <li>En el grupo <em>Ajustar</em>, haz clic en el botón <strong>Color</strong>.</li>
+                    <li>Ubica el apartado <strong>Saturación de color</strong> y selecciona la opción <strong>Saturación: 66%</strong>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 4 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">4</div>
+                <div class="item-content">
+                    <span class="item-title">Símbolo Especial</span>
+                    Antes de la palabra Moody’s colocar el símbolo de Copyright.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-4')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-4" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Coloca el cursor justo a la izquierda de la palabra <strong>Moody’s</strong>.</li>
+                    <li>Dirígete a la pestaña <strong>Insertar</strong> &gt; botón <strong>Símbolo</strong>.</li>
+                    <li>Selecciona el símbolo de Copyright (<strong>©</strong>).</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 5 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">5</div>
+                <div class="item-content">
+                    <span class="item-title">Limpieza de Formato</span>
+                    Eliminar el formato a la frase “desde Investment Grade hasta High Yield”.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-5')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-5" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Selecciona el fragmento de texto <em>“desde Investment Grade hasta High Yield”</em>.</li>
+                    <li>En la pestaña <strong>Inicio</strong>, dentro del grupo <em>Fuente</em>, haz clic en el botón <strong>Borrar todo el formato</strong> (ícono de la letra A con borrador).</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 6 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">6</div>
+                <div class="item-content">
+                    <span class="item-title">Resaltado de Texto</span>
+                    Aplicar a la fórmula un resaltado Gris del 25%.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-6')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-6" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Selecciona la fórmula presente en la sección 2 del documento.</li>
+                    <li>En la pestaña <strong>Inicio</strong>, menú <em>Fuente</em>, abre la paleta de <strong>Color de resaltado del texto</strong>.</li>
+                    <li>Selecciona el tono <strong>Gris - 25%</strong> (o Gris claro).</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 7 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">7</div>
+                <div class="item-content">
+                    <span class="item-title">Estilo de Tabla</span>
+                    A la tabla aplicar el formato Tabla de cuadrícula 2.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-7')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-7" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Haz clic sobre cualquier parte de la tabla para seleccionarla.</li>
+                    <li>Avanza a la pestaña <strong>Diseño de tabla</strong> en la cinta superior.</li>
+                    <li>Abre el catálogo de estilos y elige <strong>Tabla de cuadrícula 2</strong>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 8 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">8</div>
+                <div class="item-content">
+                    <span class="item-title">Viñetas con Imagen</span>
+                    A los últimos tres párrafos del documento aplicar una viñeta haciendo uso de la imagen <code>dinero.png</code>.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-8')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-8" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Selecciona únicamente los tres párrafos finales del documento.</li>
+                    <li>En la pestaña <strong>Inicio</strong> &gt; grupo <em>Párrafo</em>, despliega el botón de <strong>Viñetas</strong>.</li>
+                    <li>Selecciona <strong>Definir nueva viñeta...</strong> &gt; haz clic en <strong>Imagen...</strong></li>
+                    <li>Carga desde tu equipo el archivo <code>dinero.png</code> y confirma en <strong>Aceptar</strong>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 9 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">9</div>
+                <div class="item-content">
+                    <span class="item-title">Diseño de Documento</span>
+                    A todo el documento aplique el diseño Sombreado.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-9')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-9" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Haz clic en la pestaña <strong>Diseño</strong> de la barra superior.</li>
+                    <li>En el panel de formato del documento, busca y selecciona el conjunto de estilos denominado <strong>Sombreado</strong>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <!-- TAREA 10 -->
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                <div class="item-num">10</div>
+                <div class="item-content">
+                    <span class="item-title">Comentario de Auditoría</span>
+                    En la palabra “Inteligentes” colocar un comentario con el nombre completo del estudiante.
+                </div>
+                <div class="item-pts">10 pts</div>
+                <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda-10')" title="Ver paso a paso">💡</button>
+            </div>
+            <div id="ayuda-10" class="guia-paso-paso" style="display: none;">
+                <strong>Paso a paso en Word 365:</strong>
+                <ol>
+                    <li>Selecciona la palabra <strong>Inteligentes</strong> en el título del documento.</li>
+                    <li>Ve a la pestaña <strong>Insertar</strong> o <strong>Revisar</strong> y presiona <strong>Nuevo comentario</strong>.</li>
+                    <li>Escribe tu <strong>Nombre y Apellido completos</strong> en el panel de comentarios.</li>
+                </ol>
+            </div>
+        </li>
+    </ul>
+
+    <div class="zona-entrega">
+        <h3>📤 3. Subir Documento para Análisis e Inspección Automática</h3>
+        <p>Carga tu archivo <strong>.docx</strong> completado para calificar la estructura:</p>
+        
+        <div style="margin: 20px 0;">
+            <input type="file" id="inputDocx" accept=".docx">
+        </div>
+        
+        <button class="btn-evaluar" onclick="analizarYCalificarDocx()">Analizar documento (.docx)</button>
+    </div>
+
+    <!-- PANEL DE RESULTADOS CON TIEMPO REGISTRADO -->
+    <div id="panelResultadosHTML" class="resultado-box" style="display:none;">
+        <div class="resultado-header">
+            <div>
+                <h2 style="margin: 0; color: var(--word-blue, #003d80);">📊 Reporte de Evaluación - Reto 2</h2>
+            </div>
+            <div class="acciones-reporte">
+                <button class="btn-exportar-pdf" onclick="exportarReportePDF()">
+                    📄 Exportar PDF
+                </button>
+                <div id="badgeEstadoFinal" class="status-badge bg-error">REQUIERE CORRECCIÓN</div>
+            </div>
+        </div>
+
+        <div style="background-color: var(--bg-subtle, #f8f9fa); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--tbox-blue, #0056b3);">
+            <p style="font-size: 1.1rem; margin: 0 0 5px 0;"><strong>Estudiante:</strong> <span id="nombreEstudiante" style="font-weight: 700; color: var(--word-blue, #003d80);">No detectado</span></p>
+            <p style="margin: 0 0 5px 0;"><strong>Calificación Total:</strong> <span id="puntajeValor" style="font-size: 1.3rem; font-weight: 700; color: var(--word-blue, #003d80);">0</span> / 100 Puntos</p>
+            <p style="margin: 0;"><strong>Tiempo Empleado:</strong> <span id="tiempoResultado" style="font-weight: 700;">00:00</span> min</p>
+        </div>
+
+        <table class="tabla-resultados">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 35%;">Criterio Evaluado</th>
+                    <th style="width: 15%;">Puntaje</th>
+                    <th style="width: 45%;">Detalle del Análisis</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTablaEvaluacion"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- SCRIPT DEL TEMPORIZADOR -->
+<script>
+    let segundosTranscurridos = 0;
+    let temporizadorInterval = setInterval(() => {
+        segundosTranscurridos++;
+        const mins = String(Math.floor(segundosTranscurridos / 60)).padStart(2, '0');
+        const segs = String(segundosTranscurridos % 60).padStart(2, '0');
+        const display = document.getElementById('cronometroDisplay');
+        if (display) display.innerText = `${mins}:${segs}`;
+    }, 1000);
+
+    function detenerCronometro() {
+        clearInterval(temporizadorInterval);
+        const mins = String(Math.floor(segundosTranscurridos / 60)).padStart(2, '0');
+        const segs = String(segundosTranscurridos % 60).padStart(2, '0');
+        return `${mins}:${segs}`;
+    }
+</script>
+
+<script src="js/word-checker2.js"></script>
+</body>
+</html>

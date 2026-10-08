@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto Avanzado: Formato, Estilos y Estructura - Word 365 | TBox</title>
+    
+    <!-- Librería JSZip para descomprimir y leer los XML reales del archivo .docx -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <style>
+        :root {
+            /* Paleta temática Word 365 & TBox */
+            --word-blue: #0056b3;
+            --word-dark: #003d80;
+            --word-green: #107c41;
+            --tbox-orange: #ff6b00;
+            --tbox-blue: #0088cc;
+            
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --bg-card: #ffffff;
+            --bg-subtle: #f8f9fa;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f4f6f9;
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+
+        .container-reto {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Encabezado Superior con Logo TBox */
+        .header-reto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--word-blue);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header-title-box h1 {
+            color: var(--word-blue);
+            margin: 0 0 5px 0;
+            font-size: 1.8rem;
+        }
+
+        .badge-modulo {
+            background-color: #e3f2fd;
+            color: var(--word-blue);
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Badge Logo TBox */
+        .tbox-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0088cc, #0056b3);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 136, 204, 0.2);
+        }
+
+        .tbox-logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .tbox-logo-dot {
+            color: var(--tbox-orange);
+            font-size: 1.8rem;
+            line-height: 0;
+        }
+
+        .tbox-subtext {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            border-left: 1px solid rgba(255,255,255,0.4);
+            padding-left: 8px;
+            margin-left: 2px;
+        }
+
+        .section-box {
+            background: #f0f7ff;
+            border-left: 5px solid var(--word-blue);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .alert-indicacion-inicial {
+            background-color: #fff3cd;
+            border: 1px solid #ffe8a1;
+            border-left: 5px solid var(--warning);
+            color: #856404;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .alert-indicacion-inicial strong {
+            color: #533f03;
+        }
+
+        .grid-recursos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card-descarga {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 10px;
+            text-decoration: none !important;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .btn-icon {
+            background-color: var(--word-blue);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .items-lista { list-style: none; padding: 0; margin: 20px 0; }
+        .item-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px; margin-bottom: 15px; }
+        .item-main-row { display: flex; align-items: flex-start; gap: 15px; }
+
+        /* Estilo para las casillas de verificación de control interno */
+        .item-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-top: 5px;
+            cursor: pointer;
+            accent-color: var(--word-blue);
+            flex-shrink: 0;
+        }
+
+        .item-card.completado .item-title {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .item-num {
+            background: var(--word-blue);
+            color: white;
+            font-weight: 700;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .item-content { flex-grow: 1; }
+        .item-title { font-weight: 700; color: var(--word-dark); display: block; }
+        .item-pts { background: #e8f5e9; color: #2e7d32; font-weight: 700; font-size: 0.85rem; padding: 4px 10px; border-radius: 6px; }
+
+        .btn-foco-ayuda {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            color: #b78103;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .guia-paso-paso {
+            display: none;
+            background: #fffde7;
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .zona-entrega {
+            background: #f8f9fa;
+            border: 2px dashed #b8c9dc;
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin-top: 35px;
+        }
+
+        .btn-evaluar {
+            background: var(--word-blue);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-evaluar:hover {
+            background: var(--word-dark);
+        }
+
+        .resultado-box {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .resultado-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .acciones-reporte {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-exportar-pdf {
+            background-color: var(--word-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 8px rgba(16, 124, 65, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-exportar-pdf:hover {
+            background-color: #0b582e;
+            transform: translateY(-1px);
+        }
+
+        .status-badge { padding: 6px 16px; border-radius: 20px; font-weight: 700; color: white; }
+        .bg-exito { background-color: var(--success); }
+        .bg-error { background-color: var(--danger); }
+
+        .tabla-resultados { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .tabla-resultados th, .tabla-resultados td { border: 1px solid var(--border-color); padding: 12px; text-align: left; font-size: 0.9rem; }
+        .tabla-resultados th { background-color: var(--bg-subtle); color: var(--word-dark); }
+        .badge-status-td { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: white; }
+
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .header-reto, .section-box, .alert-indicacion-inicial, .grid-recursos, 
+            h3, .items-lista, .zona-entrega, .btn-exportar-pdf {
+                display: none !important;
+            }
+
+            .container-reto {
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .resultado-box {
+                display: block !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .resultado-header::before {
+                content: "TBox Academy • Reporte de Evaluación Word 365";
+                display: block;
+                font-size: 14pt;
+                font-weight: 800;
+                color: #0056b3;
+                margin-bottom: 15px;
+                border-bottom: 2px solid #0056b3;
+                padding-bottom: 5px;
+            }
+
+            .tabla-resultados {
+                page-break-inside: auto;
+            }
+
+            .tabla-resultados tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-reto">
+    
+    <!-- Encabezado con Temática Word 365 y Logo TBox -->
+    <div class="header-reto">
+        <div class="header-title-box">
+            <span class="badge-modulo">Evaluación Práctica 1/3</span>
+            <h1>🎯 Reto Integral: Maquetación, Estilos y Estructura</h1>
+        </div>
+        <div class="tbox-logo-container">
+            <div class="tbox-logo-text">TBox<span class="tbox-logo-dot">•</span></div>
+            <div class="tbox-subtext">Academy</div>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h3>📌 Instrucciones de Evaluación Automática (100 Puntos Totales)</h3>
+        <p style="margin: 0;">Descarga los recursos, realiza los ajustes en Microsoft Word 365 y sube tu archivo <strong>.docx</strong>. El sistema analizará automáticamente la estructura XML del documento para verificar los 10 criterios requeridos.</p>
+    </div>
+
+    <!-- Indicación General Inicial -->
+    <div class="alert-indicacion-inicial">
+        <strong>📌 INDICACIÓN GENERAL IMPORTANTE:</strong> Antes de comenzar con los puntos del reto, abre el documento base y en la portada sustituye la palabra <code>Estudiante</code> ubicada después de <em>"Presentado por:"</em> por tu <strong>Nombre y Apellido completos</strong>. Este nombre se extraerá automáticamente para personalizar tu reporte final de evaluación.
+    </div>
+
+    <h3>📥 1. Materiales de Trabajo</h3>
+    <div class="grid-recursos">
+        <a href="assets/docs/Documento_Base_Reto5.docx" class="card-descarga" download>
+            <span>📄 Texto Base (.docx)</span>
+            <span class="btn-icon">Descargar</span>
+        </a>
+        <a href="assets/images/Logo_Corporativo.jpg" class="card-descarga" download>
+            <span>🖼️ Logo Corporativo (.jpg)</span>
+            <span class="btn-icon" style="background-color: var(--tbox-blue);">Descargar</span>
+        </a>
+        <a href="assets/docs/Reto1_Solucion.pdf" class="card-descarga" target="_blank" rel="noopener noreferrer">
+            <span>📕 Guía Visual de Estilos</span>
+            <span class="btn-icon" style="background-color: #6c757d;">Ver Guía</span>
+        </a>
+    </div>
+
+    <h3>📝 2. Criterios que Evaluará el Analizador Automático</h3>
+    
+    <ul class="items-lista">
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">1</div>
+                <div class="item-content">
+                    <span class="item-title">Configuración de Página y Saltos de Sección</span>
+                    Inserción de Salto de Sección (Página Siguiente) antes de Anexos para cambiar orientación a Horizontal.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda1')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda1" class="guia-paso-paso">
+                <ol>
+                    <li>Ir a <strong>Disposición > Saltos > Salto de Sección (Página Siguiente)</strong> antes de Anexos.</li>
+                    <li>Cambiar la orientación de esa sección a <code>Horizontal</code>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">2</div>
+                <div class="item-content">
+                    <span class="item-title">Modificación Global del Estilo "Título 1" a Fuente Arial</span>
+                    Modificar el estilo "Título 1" asignando fuente Arial (16 pt), color Azul, Negrita y espacio Posterior/Inferior de 6 pt.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda2')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda2" class="guia-paso-paso">
+                <ol>
+                    <li>En la pestaña <strong>Inicio</strong>, haz clic derecho sobre el estilo <strong>Título 1 > Modificar</strong>.</li>
+                    <li>En la ventana de formato, cambia la fuente a <strong>Arial</strong>, tamaño 16 pt, negrita y color azul.</li>
+                    <li>Haz clic en <strong>Formato > Párrafo</strong> y establece el espaciado Posterior/Inferior en 6 pt.</li>
+                    <li>Acepta los cambios para aplicar la fuente Arial a todos los encabezados del documento.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">3</div>
+                <div class="item-content">
+                    <span class="item-title">Efectos de Texto y Mayúsculas</span>
+                    Efecto de sombra externa hacia abajo y texto en MAYÚSCULAS para el título: <em>Informe de Evaluación y Gestión de Riesgos</em>.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda3')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda3" class="guia-paso-paso">
+                <ol>
+                    <li>Seleccionar <code>Informe de Evaluación y Gestión de Riesgos</code>.</li>
+                    <li>Aplicar Efectos de texto > Sombra externa > Desplazamiento abajo y convertir a MAYÚSCULAS.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">4</div>
+                <div class="item-content">
+                    <span class="item-title">Formato de Párrafo y Copiar Formato</span>
+                    Alineación Justificada, interlineado 1.15, sangría de primera línea en 1.25 cm y uso de "Copiar formato".
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda4')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda4" class="guia-paso-paso">
+                <ol>
+                    <li>Establecer sangría de 1.25 cm e interlineado 1.15.</li>
+                    <li>Usar la herramienta <strong>Copiar formato</strong> para replicar el estilo en los párrafos.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">5</div>
+                <div class="item-content">
+                    <span class="item-title">Estructuración de Lista Multinivel</span>
+                    Estructura multinivel (1. / 1.1. / 1.1.1.) en "Hojas de Ruta para la Inversión".
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda5')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda5" class="guia-paso-paso">
+                <ol>
+                    <li>Aplicar el formato Lista Multinivel y ajustar niveles con la tecla <code>Tab</code>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">6</div>
+                <div class="item-content">
+                    <span class="item-title">Tabla y Fila Final Combinada</span>
+                    Estilo <em>Tabla con cuadrícula 4 – Énfasis 1</em> y fila final combinada con el texto <strong>INFORMACIÓN RECOPILADA</strong>.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda6')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda6" class="guia-paso-paso">
+                <ol>
+                    <li>Convertir texto a tabla, aplicar estilo <code>Tabla con cuadrícula 4 – Énfasis 1</code>.</li>
+                    <li>Agregar fila final, combinar las 4 celdas, centrar y escribir <code>INFORMACIÓN RECOPILADA</code>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">7</div>
+                <div class="item-content">
+                    <span class="item-title">Inserción de Imagen</span>
+                    <code>Logo_Corporativo.jpg</code> ubicado en la parte superior derecha ajustado con escala al 50%.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda7')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda7" class="guia-paso-paso">
+                <ol>
+                    <li>Colocar el logo arriba a la derecha con escala al 50%.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">8</div>
+                <div class="item-content">
+                    <span class="item-title">Encabezado, Pie y Marca de Agua</span>
+                    Encabezado azul, cursiva a la derecha; pie centrado; marca de agua <strong>CONFIDENCIAL 1</strong>.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda8')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda8" class="guia-paso-paso">
+                <ol>
+                    <li>Activar Primera página diferente. Encabezado derecha en azul y cursiva.</li>
+                    <li>Insertar Marca de agua <code>CONFIDENCIAL 1</code>.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">9</div>
+                <div class="item-content">
+                    <span class="item-title">Búsqueda y Reemplazo</span>
+                    Sustituir <code>plazo</code> por <code>tiempo</code> aplicando formato Negrita y Color Azul.
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda9')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda9" class="guia-paso-paso">
+                <ol>
+                    <li>Usar Reemplazar (Ctrl + L) para cambiar <code>plazo</code> por <code>tiempo</code> formateado en azul y negrita.</li>
+                </ol>
+            </div>
+        </li>
+
+        <li class="item-card">
+            <div class="item-main-row">
+                <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)" title="Marcar como realizada">
+                <div class="item-num">10</div>
+                <div class="item-content">
+                    <span class="item-title">Nota al Pie Específica</span>
+                    Nota al pie en "Interés Compuesto": <em>“Es el interés calculated sobre el capital inicial y también sobre los intereses ya ganados.”</em>
+                    <br><button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda10')">💡 Ver paso a paso</button>
+                </div>
+                <div class="item-pts">10 pts</div>
+            </div>
+            <div id="ayuda10" class="guia-paso-paso">
+                <ol>
+                    <li>Insertar Nota al Pie en 'Interés Compuesto' con el texto literal solicitado.</li>
+                </ol>
+            </div>
+        </li>
+    </ul>
+
+    <div class="zona-entrega">
+        <h3>📤 3. Subir Documento para Análisis e Inspección Automática</h3>
+        <p>Carga el archivo <strong>.docx</strong> completado para que el motor de evaluación lea la estructura interna del documento:</p>
+        
+        <div style="margin: 20px 0;">
+            <input type="file" id="inputDocx" accept=".docx">
+        </div>
+        
+        <button class="btn-evaluar" onclick="analizarYCalificarDocx()">Analizar Documento (.docx)</button>
+    </div>
+
+    <!-- Panel de Resultados con Botón de Exportar PDF -->
+    <div id="panelResultadosHTML" class="resultado-box">
+        <div class="resultado-header">
+            <div>
+                <h2 style="margin: 0; color: var(--word-blue);">📊 Reporte de Evaluación del Documento</h2>
+                <small style="color: var(--text-muted);">Resultados de la inspección automática XML</small>
+            </div>
+            <div class="acciones-reporte">
+                <button class="btn-exportar-pdf" onclick="exportarReportePDF()">
+                    📄 Exportar PDF
+                </button>
+                <div id="badgeEstadoFinal" class="status-badge bg-error">REQUIERE CORRECCIÓN</div>
+            </div>
+        </div>
+
+        <div style="background-color: var(--bg-subtle); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--tbox-blue);">
+            <p style="font-size: 1.1rem; margin: 0 0 5px 0;"><strong>Estudiante:</strong> <span id="nombreEstudiante" style="font-weight: 700; color: var(--word-blue);">No detectado</span></p>
+            <p style="margin: 0;"><strong>Calificación Total:</strong> <span id="puntajeValor" style="font-size: 1.3rem; font-weight: 700; color: var(--word-blue);">0</span> / 100 Puntos</p>
+        </div>
+
+        <table class="tabla-resultados">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 35%;">Criterio Evaluado</th>
+                    <th style="width: 15%;">Puntaje</th>
+                    <th style="width: 45%;">Detalle del Análisis</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTablaEvaluacion"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function marcarTarea(checkbox) {
+    const itemCard = checkbox.closest('.item-card');
+    if (checkbox.checked) {
+        itemCard.classList.add('completado');
+    } else {
+        itemCard.classList.remove('completado');
+    }
+}
+
+function toggleAyuda(idAyuda) {
+    const el = document.getElementById(idAyuda);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+
+// MOTOR PRINCIPAL DE LECTURA DE ARCHIVO WORD (.DOCX)
+async function analizarYCalificarDocx() {
+    const input = document.getElementById('inputDocx');
+    if (!input.files || input.files.length === 0) {
+        alert("⚠️ Selecciona un archivo .docx para proceder con el análisis.");
+        return;
+    }
+
+    const file = input.files[0];
+
+    try {
+        const zip = await JSZip.loadAsync(file);
+
+        // Archivos XML principales de la estructura Word
+        const docXml = zip.file("word/document.xml") ? await zip.file("word/document.xml").async("text") : "";
+        const stylesXml = zip.file("word/styles.xml") ? await zip.file("word/styles.xml").async("text") : "";
+        const footnotesXml = zip.file("word/footnotes.xml") ? await zip.file("word/footnotes.xml").async("text") : "";
+
+        // Archivos XML de Encabezados y Pies de página
+        let headersFootersXml = "";
+        for (let filename in zip.files) {
+            if (filename.startsWith("word/header") || filename.startsWith("word/footer")) {
+                headersFootersXml += await zip.file(filename).async("text");
+            }
+        }
+
+        // Archivos físicos de imágenes en word/media/
+        const mediaFiles = Object.keys(zip.files).filter(filename => filename.startsWith("word/media/"));
+
+        ejecutarEvaluacionXML(docXml, stylesXml, footnotesXml, headersFootersXml, mediaFiles);
+
+    } catch (err) {
+        alert("Error al analizar la estructura del archivo Word: " + err.message);
+    }
+}
+
+function ejecutarEvaluacionXML(docXml, stylesXml, footnotesXml, headersFootersXml, mediaFiles) {
+    const evaluaciones = [];
+    const docUpper = docXml.toUpperCase();
+    const docLower = docXml.toLowerCase();
+
+    // EXTRACCIÓN AUTOMÁTICA DEL NOMBRE DEL ESTUDIANTE
+    let nombreDetectado = "No detectado";
+
+    try {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(docXml, "text/xml");
+        const parrafos = xmlDoc.getElementsByTagName("w:p");
+
+        for (let i = 0; i < parrafos.length; i++) {
+            const textoParrafo = parrafos[i].textContent.trim();
+            
+            if (/Presentado\s+por\s*:/i.test(textoParrafo)) {
+                let posibleNombre = textoParrafo.replace(/Presentado\s+por\s*:/i, '').trim();
+                posibleNombre = posibleNombre.split(/Fecha\s*:/i)[0].trim();
+
+                if (posibleNombre.length > 0 && posibleNombre.toLowerCase() !== "estudiante") {
+                    nombreDetectado = posibleNombre;
+                    break;
+                } else if (i + 1 < parrafos.length) {
+                    const siguienteTexto = parrafos[i + 1].textContent.trim();
+                    if (!/Fecha\s*:/i.test(siguienteTexto) && siguienteTexto.length > 0) {
+                        nombreDetectado = siguienteTexto;
+                        break;
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        const textoLimpio = docXml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+        const matchEstudiante = textoLimpio.match(/Presentado\s+por\s*:\s*(.*?)(?:Fecha\s*:|Módulo\s*:|$)/i);
+        if (matchEstudiante && matchEstudiante[1].trim() !== "") {
+            nombreDetectado = matchEstudiante[1].trim();
+        }
+    }
+
+    const elNombre = document.getElementById('nombreEstudiante');
+    if (elNombre) {
+        elNombre.innerText = nombreDetectado;
+    }
+
+    // EVALUACIÓN DE LOS 10 CRITERIOS TÉCNICOS (10 PTS CADA UNO)
+
+    // 1. Salto de Sección Y Orientación Horizontal estricta
+    const tieneSaltoSeccion = docXml.includes('<w:type w:val="nextPage"') || (docXml.match(/<w:sectPr/g) || []).length > 1;
+    const tieneOrientacionH = docXml.includes('w:orient="landscape"') || docXml.includes('w:orient="Landscape"');
+    const logro1 = tieneSaltoSeccion && tieneOrientacionH;
+    evaluaciones.push({
+        id: 1,
+        nombre: "Configuración de Secciones y Anexos",
+        pts: 10,
+        logrado: logro1,
+        feedback: logro1 ? "Salto de sección (página siguiente) y orientación horizontal en Anexos detectados." : "0 pts: No se insertó el Salto de Sección ni la orientación horizontal en Anexos."
+    });
+
+    // 2. Modificación del Estilo Título 1 (Soporta estilos globales y formato directo)
+    const tienePStyleEncabezado = /w:pStyle\s+w:val="(Heading1|Heading_1|Titulo1|Tulo1|1)"/i.test(docXml);
+
+    // Revisa si la fuente Arial fue definida en styles.xml o directamente sobre los títulos en document.xml
+    const fuenteArialEnStyles = /<w:style[^>]*val="(Heading1|Heading_1|Titulo1|Tulo1)"[^>]*>[\s\S]*?w:ascii="Arial"/i.test(stylesXml) || 
+                                (stylesXml.includes('Arial') && /Heading1|Heading_1|Titulo1|Tulo1/i.test(stylesXml));
+    
+    const fuenteArialEnDoc = /<w:rPr>[\s\S]*?w:ascii="Arial"[\s\S]*?<\/w:rPr>/i.test(docXml) || /w:ascii="Arial"/i.test(docXml);
+
+    // El criterio se aprueba si existe la estructura de Título 1 Y la presencia de la fuente Arial
+    const logro2 = tienePStyleEncabezado && (fuenteArialEnStyles || fuenteArialEnDoc);
+
+    evaluaciones.push({
+        id: 2,
+        nombre: "Aplicación de Estilo Título 1 (Fuente Arial)",
+        pts: 10,
+        logrado: logro2,
+        feedback: logro2 ? "Estilo 'Título 1' modificado correctamente con fuente Arial y aplicado a los encabezados." : "0 pts: No se detectó la modificación de la fuente Arial en el estilo 'Título 1'."
+    });
+
+    // 3. Título Principal en MAYÚSCULAS y Efectos
+    const tieneMayusculas = docUpper.includes("INFORME DE EVALUACIÓN Y GESTIÓN DE RIESGOS") || docUpper.includes("INFORME DE EVALUACION Y GESTION DE RIESGOS");
+    const noTieneMinusculas = !docXml.includes("Informe de Evaluación y Gestión de Riesgos");
+    const tieneEfectoEstructura = docXml.includes("w14:textOutline") || docXml.includes("w14:shadow") || docXml.includes("w14:glow") || docXml.includes("w:shadow") || docXml.includes("w:effect");
+    const logro3 = tieneMayusculas && noTieneMinusculas && tieneEfectoEstructura;
+    evaluaciones.push({
+        id: 3,
+        nombre: "Efecto y Mayúsculas en Título Principal",
+        pts: 10,
+        logrado: logro3,
+        feedback: logro3 ? "Título en MAYÚSCULAS con efectos de texto aplicados correctamente." : "0 pts: El título no está completamente en MAYÚSCULAS o le faltan efectos de texto."
+    });
+
+    // 4. Formato de Párrafo (Sangría de primera línea e interlineado)
+    const tieneSangriaEfectiva = docXml.includes('w:firstLine=') || docXml.includes('w:firstLineChars=');
+    const tieneInterlineado = docXml.includes('w:line=') || docXml.includes('w:lineRule=');
+    const logro4 = tieneSangriaEfectiva && tieneInterlineado;
+    evaluaciones.push({
+        id: 4,
+        nombre: "Formato de Párrafo y Copiar Formato",
+        pts: 10,
+        logrado: logro4,
+        feedback: logro4 ? "Sangría de primera línea (1.25 cm), interlineado y alineación aplicados." : "0 pts: Párrafos sin sangría de primera línea ni formato."
+    });
+
+    // 5. Lista Multinivel Jerarquizada
+    const tieneListaMultinivel = docXml.includes("<w:numPr>") && (docXml.includes('w:ilvl w:val="1"') || docXml.includes('w:ilvl w:val="2"') || docXml.includes('<w:ilvl'));
+    evaluaciones.push({
+        id: 5,
+        nombre: "Lista Multinivel Jerarquizada",
+        pts: 10,
+        logrado: tieneListaMultinivel,
+        feedback: tieneListaMultinivel ? "Estructura de Lista Multinivel por niveles jerárquicos detectada." : "0 pts: No se configuró la Lista Multinivel."
+    });
+
+    // 6. Tabla con Fila Combinada 'INFORMACIÓN RECOPILADA'
+    const tieneTablaXML = docXml.includes("<w:tbl>");
+    const tieneFilaCombinada = docXml.includes("w:gridSpan") && (docUpper.includes("INFORMACIÓN RECOPILADA") || docUpper.includes("INFORMACION RECOPILADA"));
+    const logro6 = tieneTablaXML && tieneFilaCombinada;
+    evaluaciones.push({
+        id: 6,
+        nombre: "Tabla con Fila Combinada 'INFORMACIÓN RECOPILADA'",
+        pts: 10,
+        logrado: logro6,
+        feedback: logro6 ? "Tabla procesada correctamente con la fila final combinada y texto centrado." : "0 pts: No se convirtió el texto a Tabla o falta la fila combinada."
+    });
+
+    // 7. Inserción de Imagen
+    const tieneEtiquetaDrawing = docXml.includes("<w:drawing>") || docXml.includes("<v:imagedata") || docXml.includes("a:blip");
+    const cantidadImagenes = (docXml.match(/<w:drawing>/g) || []).length + (docXml.match(/<v:imagedata/g) || []).length + (docXml.match(/<a:blip/g) || []).length;
+    const logro7 = mediaFiles.length >= 1 || cantidadImagenes >= 1 || tieneEtiquetaDrawing;
+    evaluaciones.push({
+        id: 7,
+        nombre: "Inserción y Ajuste de Imagen",
+        pts: 10,
+        logrado: logro7,
+        feedback: logro7 ? "Imagen (Logo corporativo) encontrada e insertada correctamente." : "0 pts: No se detectó la inserción de la imagen dentro del documento."
+    });
+
+    // 8. Encabezado, Pie de Página y Marca 'CONFIDENCIAL 1'
+    const headersUpper = headersFootersXml.toUpperCase();
+    const tieneMarcaAgua = headersUpper.includes("CONFIDENCIAL") || docUpper.includes("CONFIDENCIAL");
+    const tieneEncabezado = headersFootersXml.includes("<w:hdr") || headersFootersXml.length > 100;
+    const logro8 = tieneMarcaAgua && tieneEncabezado;
+    evaluaciones.push({
+        id: 8,
+        nombre: "Encabezado, Pie de Página y Marca 'CONFIDENCIAL 1'",
+        pts: 10,
+        logrado: logro8,
+        feedback: logro8 ? "Encabezado en azul/cursiva, numeración de página y marca de agua detectados." : "0 pts: Falta el encabezado, número de página o la marca de agua."
+    });
+
+    // 9. Búsqueda y Reemplazo de 'plazo' por 'tiempo'
+    const contienePlazo = docLower.includes("largo plazo") || docLower.includes("corto plazo") || docLower.includes("mediano plazo");
+    const contieneTiempo = docLower.includes("largo tiempo") || docLower.includes("corto tiempo") || docLower.includes("mediano tiempo");
+    const logro9 = contieneTiempo && !contienePlazo;
+    evaluaciones.push({
+        id: 9,
+        nombre: "Búsqueda y Reemplazo por 'tiempo'",
+        pts: 10,
+        logrado: logro9,
+        feedback: logro9 ? "Sustitución efectuada: la palabra 'plazo' fue reemplazada por 'tiempo'." : "0 pts: No se ejecutó el reemplazo de la palabra 'plazo'."
+    });
+
+    // 10. Nota al Pie en 'Interés Compuesto'
+    const footnotesUpper = footnotesXml.toUpperCase();
+    const logro10 = footnotesUpper.includes("INTERÉS CALCULADO SOBRE EL CAPITAL INICIAL") || 
+                    footnotesUpper.includes("INTERES CALCULADO SOBRE EL CAPITAL INICIAL") || 
+                    (footnotesXml.length > 50 && (footnotesUpper.includes("CAPITAL INICIAL") || footnotesUpper.includes("INTERÉS")));
+    evaluaciones.push({
+        id: 10,
+        nombre: "Nota al Pie en 'Interés Compuesto'",
+        pts: 10,
+        logrado: logro10,
+        feedback: logro10 ? "Nota al pie localizada con el texto explicativo de Interés Compuesto." : "0 pts: No se ha insertado la Nota al Pie requerida."
+    });
+
+    // RENDERIZADO DE RESULTADOS
+    let totalPuntaje = 0;
+    const cuerpoTabla = document.getElementById('cuerpoTablaEvaluacion');
+    cuerpoTabla.innerHTML = '';
+
+    evaluaciones.forEach(item => {
+        const puntos = item.logrado ? item.pts : 0;
+        totalPuntaje += puntos;
+
+        const badgeClass = item.logrado ? 'bg-exito' : 'bg-error';
+        const badgeText = item.logrado ? `${item.pts} / ${item.pts} pts` : `0 / ${item.pts} pts`;
+
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td><strong>${item.id}</strong></td>
+            <td>${item.nombre}</td>
+            <td><span class="badge-status-td ${badgeClass}">${badgeText}</span></td>
+            <td>${item.feedback}</td>
+        `;
+        cuerpoTabla.appendChild(fila);
+    });
+
+    document.getElementById('puntajeValor').innerText = totalPuntaje;
+    const badgeFinal = document.getElementById('badgeEstadoFinal');
+
+    if (totalPuntaje >= 80) {
+        badgeFinal.className = "status-badge bg-exito";
+        badgeFinal.innerText = "APROBADO";
+    } else {
+        badgeFinal.className = "status-badge bg-error";
+        badgeFinal.innerText = "REQUIERE CORRECCIÓN";
+    }
+
+    const panel = document.getElementById('panelResultadosHTML');
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+// FUNCIONALIDAD NATIVA DE EXPORTACIÓN A PDF (IMPRESIÓN CONTROLADA SIN LIBRERÍAS EXTERNAS)
+function exportarReportePDF() {
+    window.print();
+}
+</script>
+
+</body>
+</html>

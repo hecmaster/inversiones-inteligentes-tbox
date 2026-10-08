@@ -1,0 +1,395 @@
+:root {
+    /* Paleta temática Word 365 & TBox */
+    --word-blue: #0056b3;
+    --word-dark: #003d80;
+    --word-green: #107c41;
+    --tbox-orange: #ff6b00;
+    --tbox-blue: #0088cc;
+    
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --bg-card: #ffffff;
+    --bg-subtle: #f8f9fa;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --border-color: #e9ecef;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f4f6f9;
+    color: var(--text-main);
+    margin: 0;
+    padding: 30px 15px;
+    line-height: 1.6;
+}
+
+.container-reto {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Encabezado Superior con Logo TBox */
+.header-reto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--word-blue);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.header-title-box h1 {
+    color: var(--word-blue);
+    margin: 0 0 5px 0;
+    font-size: 1.8rem;
+}
+
+.badge-modulo {
+    background-color: #e3f2fd;
+    color: var(--word-blue);
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Badge Logo TBox */
+.tbox-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0088cc, #0056b3);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.2);
+}
+
+.tbox-logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+}
+
+.tbox-logo-dot {
+    color: var(--tbox-orange);
+    font-size: 1.8rem;
+    line-height: 0;
+}
+
+.tbox-subtext {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    border-left: 1px solid rgba(255,255,255,0.4);
+    padding-left: 8px;
+    margin-left: 2px;
+}
+
+.section-box {
+    background: #f0f7ff;
+    border-left: 5px solid var(--word-blue);
+    padding: 20px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.alert-indicacion-inicial {
+    background-color: #fff3cd;
+    border: 1px solid #ffe8a1;
+    border-left: 5px solid var(--warning);
+    color: #856404;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 0.95rem;
+}
+
+.alert-indicacion-inicial strong {
+    color: #533f03;
+}
+
+.grid-recursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.card-descarga {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 14px 18px;
+    border-radius: 10px;
+    text-decoration: none !important;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.btn-icon {
+    background-color: var(--word-blue);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.items-lista { list-style: none; padding: 0; margin: 20px 0; }
+.item-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 10px; padding: 18px 20px; margin-bottom: 15px; }
+.item-main-row { display: flex; align-items: flex-start; gap: 15px; }
+
+/* Casillas de verificación de control interno */
+.item-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    cursor: pointer;
+    accent-color: var(--word-blue);
+    flex-shrink: 0;
+}
+
+.item-card.completado .item-title {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.item-num {
+    background: var(--word-blue);
+    color: white;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.item-content { flex-grow: 1; }
+.item-title { font-weight: 700; color: var(--word-dark); display: block; }
+.item-pts { background: #e8f5e9; color: #2e7d32; font-weight: 700; font-size: 0.85rem; padding: 4px 10px; border-radius: 6px; }
+
+.btn-foco-ayuda {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    color: #b78103;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.guia-paso-paso {
+    display: none;
+    background: #fffde7;
+    border-left: 4px solid var(--warning);
+    padding: 15px 20px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+}
+
+.zona-entrega {
+    background: #f8f9fa;
+    border: 2px dashed #b8c9dc;
+    padding: 35px 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 35px;
+}
+
+.btn-evaluar {
+    background: var(--word-blue);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-evaluar:hover {
+    background: var(--word-dark);
+}
+
+.resultado-box {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.resultado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.acciones-reporte {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-exportar-pdf {
+    background-color: var(--word-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(16, 124, 65, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-exportar-pdf:hover {
+    background-color: #0b582e;
+    transform: translateY(-1px);
+}
+
+.status-badge { padding: 6px 16px; border-radius: 20px; font-weight: 700; color: white; }
+.bg-exito { background-color: var(--success); }
+.bg-error { background-color: var(--danger); }
+
+.tabla-resultados { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.tabla-resultados th, .tabla-resultados td { border: 1px solid var(--border-color); padding: 12px; text-align: left; font-size: 0.9rem; }
+.tabla-resultados th { background-color: var(--bg-subtle); color: var(--word-dark); }
+.badge-status-td { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: white; }
+
+
+/* ==========================================================================
+   CONFIGURACIÓN DE IMPRESIÓN / EXPORTACIÓN PDF (PÁGINA ÚNICA TAMAÑO CARTA)
+   ========================================================================== */
+@page {
+    size: letter portrait; /* Tamaño Carta vertical */
+    margin: 0.8cm;         /* Margen estrecho para aprovechar todo el espacio */
+}
+
+@media print {
+    /* Ocultar elementos no necesarios en el PDF */
+    body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 11px !important; /* Reducción global para garantizar 1 página */
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Ocultar la interfaz principal de trabajo y dejar solo el reporte */
+    .header-reto, 
+    .section-box, 
+    .alert-indicacion-inicial, 
+    .grid-recursos, 
+    h3, 
+    .items-lista, 
+    .zona-entrega, 
+    .btn-exportar-pdf,
+    .btn-foco-ayuda,
+    .guia-paso-paso {
+        display: none !important;
+    }
+
+    /* Ajustar el contenedor principal */
+    .container-reto {
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Estructurar la caja del reporte para que ocupe el 100% del alto carta */
+    .resultado-box {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .resultado-header {
+        padding-bottom: 8px !important;
+        margin-bottom: 10px !important;
+        border-bottom: 2px solid var(--word-blue) !important;
+    }
+
+    .resultado-header h2 {
+        font-size: 1.3rem !important;
+    }
+
+    /* Bloque con Nombre del Estudiante y Calificación */
+    .resultado-box > div:nth-child(2) {
+        padding: 8px 12px !important;
+        margin-bottom: 12px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .resultado-box > div:nth-child(2) p {
+        margin: 2px 0 !important;
+    }
+
+    /* Optimización de la Tabla de Resultados de los 10 Criterios */
+    .tabla-resultados {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-top: 5px !important;
+        font-size: 0.78rem !important; /* Fuente compacta para las 10 filas */
+    }
+
+    .tabla-resultados th {
+        background-color: #f0f4f8 !important;
+        color: #003d80 !important;
+        padding: 5px 8px !important;
+        font-size: 0.8rem !important;
+        text-transform: uppercase;
+    }
+
+    .tabla-resultados td {
+        padding: 4px 8px !important; /* Padding ultra-compacto por fila */
+        line-height: 1.25 !important;
+        border: 1px solid #dcdcdc !important;
+    }
+
+    .badge-status-td {
+        padding: 2px 6px !important;
+        font-size: 0.7rem !important;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .status-badge {
+        padding: 4px 12px !important;
+        font-size: 0.8rem !important;
+    }
+}

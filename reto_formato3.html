@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluador Automático - Reto 3</title>
+    <link rel="stylesheet" href="css/reto-formato3.css">
+    <!-- Librerías de JSZip y Lucide Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="container-reto">
+        <!-- Encabezado Superior con Logo TBox -->
+        <header class="header-reto">
+            <div class="header-title-box">
+                <h1>Evaluador Automático - Reto 3</h1>
+                <span class="badge-modulo">Módulo de Word 365</span>
+            </div>
+            <div class="tbox-logo-container">
+                <span class="tbox-logo-text">TBOX</span>
+                <span class="tbox-logo-dot">•</span>
+                <span class="tbox-subtext">CODE</span>
+            </div>
+        </header>
+
+        <div class="alert-indicacion-inicial">
+            <strong>Indicación:</strong> Realiza cada una de las actividades en tu documento de Word 365. Marca las casillas de verificación para llevar tu propio control y consulta las guías paso a paso si requieres ayuda.
+        </div>
+
+        <!-- Recursos de Descarga -->
+        <div class="grid-recursos">
+            <a href="assets/docs/reto3/reto3_base.docx" download class="card-descarga">
+                <span><i data-lucide="file-text"></i> Descargar Plantilla Reto 3</span>
+                <span class="btn-icon">DOCX</span>
+            </a>
+        </div>
+
+        <div class="section-box">
+            <h2>Lista de Tareas a Realizar</h2>
+            <p>Sigue las instrucciones para aplicar los formatos de encabezado, notas al pie, columnas, formas e íconos.</p>
+        </div>
+
+        <!-- LISTA DE TAREAS -->
+        <ul class="items-lista">
+
+            <!-- Tarea 1 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">1</div>
+                    <div class="item-content">
+                        <span class="item-title">Encabezado 'Con bandas'</span>
+                        <p>Utilizar Encabezado llamado Con bandas y colocar el texto <code>“INVERSIONES INTELIGENTES”</code>.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda1')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda1" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve a la pestaña <strong>Insertar</strong>.</li>
+                                <li>En el grupo <em>Encabezado y pie de página</em>, haz clic en <strong>Encabezado</strong>.</li>
+                                <li>Selecciona el estilo <strong>Con bandas</strong> (Banded).</li>
+                                <li>Escribe el texto: <code>INVERSIONES INTELIGENTES</code>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 2 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">2</div>
+                    <div class="item-content">
+                        <span class="item-title">Nota al pie en primer párrafo</span>
+                        <p>Al final del primer párrafo agregar una nota al pie con el texto: <code>“Es importante diferenciar entre el rendimiento nominal y el rendimiento real.”</code></p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda2')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda2" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Sitúa el cursor justo al final del primer párrafo.</li>
+                                <li>Ve a la pestaña <strong>Referencias</strong>.</li>
+                                <li>Haz clic en <strong>Insertar nota al pie</strong>.</li>
+                                <li>Escribe: <code>Es importante diferenciar entre el rendimiento nominal y el rendimiento real.</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 3 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">3</div>
+                    <div class="item-content">
+                        <span class="item-title">Número de página 'Círculo'</span>
+                        <p>Configurar el documento con numeración de página llamado Círculo ubicarlo en la parte inferior del documento.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda3')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda3" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve a la pestaña <strong>Insertar</strong>.</li>
+                                <li>Haz clic en <strong>Número de página</strong> &gt; <strong>Final de página</strong>.</li>
+                                <li>Selecciona el formato <strong>Círculo</strong> (Circle).</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 4 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">4</div>
+                    <div class="item-content">
+                        <span class="item-title">Dos columnas en Tema 3</span>
+                        <p>Configurar en dos columnas todos los párrafos del Tema 3: “Estrategias operativas para optimizar el par liquidez - rendimiento”.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda4')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda4" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Selecciona los párrafos debajo del título del Tema 3.</li>
+                                <li>Ve a la pestaña <strong>Disposición</strong> (o <em>Diseño de página</em>).</li>
+                                <li>Haz clic en <strong>Columnas</strong> y elige <strong>Dos</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 5 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">5</div>
+                    <div class="item-content">
+                        <span class="item-title">Margen Moderado</span>
+                        <p>Aplicar el margen al documento llamado Moderado.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda5')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda5" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve a la pestaña <strong>Disposición</strong>.</li>
+                                <li>Haz clic en <strong>Márgenes</strong>.</li>
+                                <li>Selecciona el margen preestablecido <strong>Moderado</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 6 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">6</div>
+                    <div class="item-content">
+                        <span class="item-title">Color de página 'Gris claro, Fondo 2'</span>
+                        <p>Cambiar el color de la página de tal manera que sea Gris claro, Fondo 2.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda6')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda6" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve a la pestaña <strong>Diseño</strong>.</li>
+                                <li>Haz clic en <strong>Color de página</strong>.</li>
+                                <li>En los Colores del tema, selecciona <strong>Gris claro, Fondo 2</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 7 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">7</div>
+                    <div class="item-content">
+                        <span class="item-title">Cotización de filigrana en Tema 1</span>
+                        <p>Al final del último párrafo del Tema 1, colocar el cuadro de texto llamado Cotización de filigrana con el texto especificado.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda7')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda7" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve al final del Tema 1.</li>
+                                <li>Haz clic en <strong>Insertar</strong> &gt; <strong>Cuadro de texto</strong>.</li>
+                                <li>Selecciona <strong>Cotización de filigrana</strong>.</li>
+                                <li>Coloca el texto: <code>"A mayor liquidez, menor rendimiento esperado; a mayor inmovilización del capital, mayor compensación exigida por el mercado." - Principio fundamental de las finanzas</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 8 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">8</div>
+                    <div class="item-content">
+                        <span class="item-title">Ícono de Dinero/Finanzas</span>
+                        <p>Al inicio del primer párrafo del documento agregar un ícono relacionado a dinero o finanzas.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda8')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda8" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Sitúa el cursor al inicio del primer párrafo.</li>
+                                <li>Ve a <strong>Insertar</strong> &gt; <strong>Íconos</strong>.</li>
+                                <li>Busca <em>dinero</em> o <em>finanzas</em> e inserta el ícono de tu elección.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 9 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">9</div>
+                    <div class="item-content">
+                        <span class="item-title">Forma 'Pergamino: Horizontal' con texto</span>
+                        <p>Al final del documento agregar la forma llamada Pergamino: Horizontal y agregar el texto <code>“FINANZAS”</code>.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda9')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda9" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Ve al final del documento.</li>
+                                <li>Haz clic en <strong>Insertar</strong> &gt; <strong>Formas</strong>.</li>
+                                <li>En <em>Cintas y estrellas</em>, selecciona <strong>Pergamino: Horizontal</strong>.</li>
+                                <li>Dibuja la forma, haz clic derecho, elige <strong>Agregar texto</strong> y escribe <code>FINANZAS</code>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+            <!-- Tarea 10 -->
+            <li class="item-card">
+                <div class="item-main-row">
+                    <input type="checkbox" class="item-checkbox" onchange="marcarTarea(this)">
+                    <div class="item-num">10</div>
+                    <div class="item-content">
+                        <span class="item-title">Propiedad 'Comentarios' (Nombre completo)</span>
+                        <p>Modificar las propiedades del documento llamada Comentarios y colocar su nombre completo.</p>
+                        <button class="btn-foco-ayuda" onclick="toggleAyuda('ayuda10')"><i data-lucide="help-circle"></i> Ayuda paso a paso</button>
+                        <div id="ayuda10" class="guia-paso-paso">
+                            <strong>Pasos en Word 365:</strong>
+                            <ol>
+                                <li>Haz clic en <strong>Archivo</strong> &gt; <strong>Información</strong>.</li>
+                                <li>A la derecha, haz clic en <strong>Mostrar todas las propiedades</strong>.</li>
+                                <li>Escribe tu nombre completo en el campo <strong>Comentarios</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <span class="item-pts">10 pts</span>
+                </div>
+            </li>
+
+        </ul>
+
+        <!-- ZONA DE ENTREGA Y EVALUACIÓN -->
+        <div class="zona-entrega">
+            <h3>Cargar Documento para Evaluación</h3>
+            <p>Selecciona tu archivo <code>.docx</code> resuelto y presiona el botón para verificar automáticamente los cambios.</p>
+            <br>
+            <input type="file" id="inputDocx" accept=".docx" style="margin-bottom: 15px;">
+            <br>
+            <button class="btn-evaluar" onclick="analizarYCalificarDocx()">
+                <i data-lucide="play"></i> Evaluar Documento Reto 3
+            </button>
+        </div>
+
+        <!-- REPORTE DE RESULTADOS -->
+        <div id="panelResultadosHTML" class="resultado-box">
+            <div class="resultado-header">
+                <h2>Reporte de Evaluación - Reto 3</h2>
+                <div class="acciones-reporte">
+                    <button onclick="exportarReportePDF()" class="btn-exportar-pdf">
+                        <i data-lucide="printer"></i> Exportar / Imprimir PDF
+                    </button>
+                </div>
+            </div>
+
+            <div style="background-color: var(--bg-subtle); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 5px 0;"><strong>Estudiante:</strong> <span id="nombreEstudiante">No detectado</span></p>
+                <p style="margin: 5px 0;"><strong>Puntaje Obtenido:</strong> <strong id="puntajeValor" style="font-size: 1.2rem; color: var(--word-blue);">0</strong> / 100 puntos</p>
+                <p style="margin: 5px 0;"><strong>Estado:</strong> <span id="badgeEstadoFinal" class="status-badge">EVALUANDO</span></p>
+            </div>
+
+            <table class="tabla-resultados">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 35%;">Criterio Evaluado</th>
+                        <th style="width: 15%;">Resultado</th>
+                        <th style="width: 45%;">Detalle del Análisis XML</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTablaEvaluacion">
+                    <!-- Contenido dinámico mediante JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="js/word-checker3.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

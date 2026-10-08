@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inversiones Inteligentes - Microsoft Word 365 | TBox</title>
+  <!-- FontAwesome para íconos estilo Microsoft Office -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal con Identidad TBox y Office 365 -->
+  <header class="navbar">
+    <div class="brand-container">
+  <div class="tbox-logo">
+    <img src="https://www.tboxplanet.com/web/software/images/Logo_mediano.png" alt="Logo TBox">
+  </div>
+  <div class="divider"></div>
+  <div class="office-logo">
+    <i class="fa-solid fa-file-word"></i> Microsoft Word 365
+  </div>
+</div>
+    <div class="project-title">
+      <h1>Inversiones Inteligentes</h1>
+      <span>Fortalecimiento de Competencias Digitales MOS</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro-section">
+      <h2>Módulos de Evaluación e Interacción</h2>
+      <p>Selecciona una tarjeta para ingresar a los cuestionarios teóricos o desarrollar los retos prácticos basados en los 22 temas del documento.</p>
+    </section>
+
+    <!-- Grid con las 8 Tarjetas Interactivas -->
+    <div class="cards-grid">
+
+      <!-- ================= BLOQUE TEÓRICO (4 Tarjetas) ================= -->
+      <!-- Tarjeta 1 -->
+      <article class="card card-theory" onclick="abrirCuestionarioTeorico(1)">
+        <div class="card-badge badge-theory">Teórico 1/4</div>
+        <div class="card-icon"><i class="fa-solid fa-font"></i></div>
+        <h3>1. Formato y Estilos de Texto</h3>
+        <p>Evaluación teórica sobre aplicación de formatos, estilos de texto, listas, borrado de formato, efectos y reemplazo de texto.</p>
+        <button class="btn btn-theory"><i class="fa-solid fa-clipboard-question"></i> Realizar Evaluación</button>
+      </article>
+
+      <!-- Tarjeta 2 -->
+      <article class="card card-theory" onclick="abrirCuestionarioTeorico(2)">
+        <div class="card-badge badge-theory">Teórico 2/4</div>
+        <div class="card-icon"><i class="fa-solid fa-file-lines"></i></div>
+        <h3>2. Configuración de Página</h3>
+        <p>Preguntas sobre tamaño de papel, orientación, márgenes, distribución en columnas, diseño del documento y marcas de agua.</p>
+        <button class="btn btn-theory"><i class="fa-solid fa-clipboard-question"></i> Realizar Evaluación</button>
+      </article>
+
+      <!-- Tarjeta 3 -->
+      <article class="card card-theory" onclick="abrirCuestionarioTeorico(3)">
+        <div class="card-badge badge-theory">Teórico 3/4</div>
+        <div class="card-icon"><i class="fa-solid fa-table-cells"></i></div>
+        <h3>3. Tablas e Ilustraciones</h3>
+        <p>Cuestionario sobre trabajo con tablas, inserción de filas/columnas, imágenes, íconos, formas y cuadros de texto.</p>
+        <button class="btn btn-theory"><i class="fa-solid fa-clipboard-question"></i> Realizar Evaluación</button>
+      </article>
+
+      <!-- Tarjeta 4 -->
+      <article class="card card-theory" onclick="abrirCuestionarioTeorico(4)">
+        <div class="card-badge badge-theory">Teórico 4/4</div>
+        <div class="card-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+        <h3>4. Referencias y Revisión</h3>
+        <p>Validación conceptual sobre encabezados, pies de página, notas al pie, comentarios, metadatos y exportación a PDF.</p>
+        <button class="btn btn-theory"><i class="fa-solid fa-clipboard-question"></i> Realizar Evaluación</button>
+      </article>
+
+
+      <!-- ================= BLOQUE PRÁCTICO (3 Tarjetas) ================= -->
+    <!-- Tarjeta 5 -->
+    <article class="card card-practical">
+    <div class="card-badge badge-practical">Práctico 1/3</div>
+    <div class="card-icon"><i class="fa-solid fa-file-pen"></i></div>
+    <h3 class="card-title">Reto 1: Formato y Estilos</h3>
+    <p>Aplica formato al texto base de inversiones, crea listas, tablas y reemplazos. Incluye recursos descargables y evaluación automática.</p>
+    
+    <a href="reto_formato.html" target="_blank" class="btn btn-practical" style="text-decoration: none;">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ir al Reto (100 pts)
+    </a>
+    </article>
+
+      <!-- Tarjeta 6 -->
+      <article class="card card-practical">
+    <div class="card-badge badge-practical">Práctico 2/3</div>
+    <div class="card-icon"><i class="fa-solid fa-file-word"></i></div>
+    <h3 class="card-title">Reto 2: Estilos, Edición de Imágenes y Elementos Especiales</h3>
+    <p>Aplica estilos avanzados a subtítulos, edita saturación de imágenes, inserta comentarios de auditoría, símbolos especiales, tablas con formato y viñetas personalizadas con imagen.</p>
+    
+    <a href="reto_formato2.html" target="_blank" class="btn btn-practical" style="text-decoration: none;">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ir al Reto (100 pts)
+    </a>
+    </article>
+
+     <!-- Tarjeta 7: Reto 3 -->
+     <article class="card card-practical">
+    <div class="card-badge badge-practical">Práctico 3/3</div>
+    <div class="card-icon"><i class="fa-solid fa-file-word"></i></div>
+    <h3 class="card-title">Reto 3: Formatos Avanzados, Estilos y Elementos Visuales</h3>
+    <p>Aplica formatos estructurales y de diseño como encabezados, notas al pie, numeración, columnas, márgenes, cuadros de texto, formas e íconos en Word.</p>
+    
+    <a href="reto_formato3.html" target="_blank" class="btn btn-practical" style="text-decoration: none;">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ir al Reto (100 pts)
+    </a>
+    </article>
+
+
+      <!-- ================= EXAMEN INTEGRADOR FINAL (1 Tarjeta) ================= -->
+      <!-- Tarjeta 8 -->
+      <article class="card card-final" onclick="abrirRetoFinal()">
+        <div class="card-badge badge-final">Evaluación Integradora</div>
+        <div class="card-icon"><i class="fa-solid fa-award"></i></div>
+        <h3>8. Proyecto Integrador Final</h3>
+        <p>Evaluación completa de los 22 temas. Genera reporte PDF formal sobre 100 pts con nombre del estudiante y sistema de control antifraude.</p>
+        <button class="btn btn-final"><i class="fa-solid fa-flag-checkered"></i> Iniciar Examen Final</button>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Modal Interactivo Único -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="cerrarModal()">&times;</button>
+      <div id="modal-body">
+        <!-- El contenido se inyecta dinámicamente con app.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- Módulos JS del proyecto -->
+  <script src="js/data.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
